@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  # Service 1: Run data preparation
+  data-prep:
+    build: .
+    command: python -m src.data_prep
+    volumes:
+      - ./data:/app/data
+
+  # Service 2: Train the model
+  train:
+    build: .
+    command: python -m src.train_model
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    depends_on:
+      - data-prep
+
+  # Service 3: Run tests
+  test:
+    build: .
+    command: python -m pytest tests/ -v
+    volumes:
+      - ./models:/app/models
+
+  # Service 4: Serve the API
+  api:
+    build: .
+    command: uvicorn src.predict_api:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+
+
+

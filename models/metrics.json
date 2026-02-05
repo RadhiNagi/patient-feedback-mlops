@@ -1,0 +1,9 @@
+{
+  "accuracy": 0.8144,
+  "f1_weighted": 0.8279,
+  "f1_per_class": {
+    "negative": 0.7926,
+    "neutral": 0.4929,
+    "positive": 0.8872
+  }
+}
