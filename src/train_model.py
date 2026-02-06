@@ -142,6 +142,9 @@ def save_artifacts(model, vectorizer, metrics, output_dir="models"):
     print(f"Metrics saved: {metrics_path}")
 
 
+
+
+
 if __name__ == "__main__":
     print("=" * 50)
     print("SENTIMENT MODEL TRAINING")
@@ -163,5 +166,9 @@ if __name__ == "__main__":
 
     # Step 5: Save everything
     save_artifacts(model, vectorizer, metrics)
+
+    # Step 6: Register model version
+    from src.model_registry import register_model
+    register_model(metrics)
 
     print("\n✅ Training pipeline complete!")
