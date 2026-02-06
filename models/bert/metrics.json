@@ -1,0 +1,10 @@
+{
+  "model_type": "distilbert",
+  "accuracy": 0.7015,
+  "f1_weighted": 0.7046,
+  "f1_per_class": {
+    "negative": 0.7119,
+    "neutral": 0.614,
+    "positive": 0.788
+  }
+}

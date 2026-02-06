@@ -3,4 +3,6 @@ __pycache__/
 .pytest_cache/
 data/processed/
 models/*.joblib
+models/bert/model.safetensors
+models/bert/pytorch_model.bin
 .env
