@@ -111,6 +111,22 @@ def predict_batch(reviews: list[ReviewRequest]):
     if len(reviews) > 100:
         raise HTTPException(status_code=400, detail="Max 100 reviews per batch")
 
+    if len(reviews) == 0:
+        raise HTTPException(status_code=400, detail="At least 1 review is required")
+
+    empty_review_indexes = [
+        index for index, review in enumerate(reviews)
+        if not review.review or not review.review.strip()
+    ]
+    if empty_review_indexes:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "message": "Review text cannot be empty",
+                "invalid_indexes": empty_review_indexes
+            }
+        )
+
     texts = [r.review for r in reviews]
     features = vectorizer.transform(texts)
     predictions = model.predict(features)
