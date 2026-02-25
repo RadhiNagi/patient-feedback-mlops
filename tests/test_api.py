@@ -92,3 +92,19 @@ class TestBatchEndpoint:
         data = response.json()
         assert data["total"] == 3
         assert len(data["predictions"]) == 3
+
+    def test_batch_predict_empty_list(self):
+        """Empty batch should return 400"""
+        response = client.post("/predict/batch", json=[])
+        assert response.status_code == 400
+
+    def test_batch_predict_empty_review_item(self):
+        """Any blank review inside batch should return 400"""
+        response = client.post(
+            "/predict/batch",
+            json=[
+                {"review": "Works well for me"},
+                {"review": "   "}
+            ]
+        )
+        assert response.status_code == 400
